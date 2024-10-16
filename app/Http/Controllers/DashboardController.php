@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -13,8 +14,12 @@ class DashboardController extends Controller
      */
     public function index()
     {
+
+        $registeredCourses = Auth::user()->courses->pluck('id');
+
+        $courses = Course::whereNotIn('id', $registeredCourses)->get();
         return view('dashboard', [
-            'courses' => Course::all()
+            'courses' => $courses
         ]);
     }
 
@@ -58,8 +63,11 @@ class DashboardController extends Controller
                 'type' => 'مسموح بملفات الصور وال بي دي اف فقط'
             ]);
         }
+        auth()->user()->courses()->attach(array_keys($selectedCourses));
 
-        return 'valid';
+        return redirect()->back()->with([
+            'success' => 'تم تسجيل الدورات بنجاح'
+        ]);
     }
 
     private function validateExtention($files): bool
