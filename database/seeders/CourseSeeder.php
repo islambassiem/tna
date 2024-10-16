@@ -26,7 +26,7 @@ class CourseSeeder extends Seeder
             'name' => 'بناء وإدارة فرق العمل'
         ]);
         Course::create([
-            'name' => 'دارة الوقت وضغوط العمل'
+            'name' => 'ادارة الوقت وضغوط العملاء'
         ]);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Attachment;
 use App\Models\Course;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -63,6 +64,9 @@ class DashboardController extends Controller
                 'type' => 'مسموح بملفات الصور وال بي دي اف فقط'
             ]);
         }
+
+        $this->storeFiles($files);
+
         auth()->user()->courses()->attach(array_keys($selectedCourses));
 
         return redirect()->back()->with([
@@ -94,8 +98,14 @@ class DashboardController extends Controller
     private function storeFiles($files)
     {
         $paths = [];
+        $user_id = Auth::user()->id;
         foreach ($files as $file) {
-            $paths[] =  $file->store("/" . Auth::user()->id, 'public');
+            $filePath = $file->store("/" . $user_id, 'public');
+            $paths[]  =  $filePath;
+            Attachment::create([
+                'user_id' => $user_id,
+                'path'    => $filePath
+            ]);
         }
         return $paths;
     }
