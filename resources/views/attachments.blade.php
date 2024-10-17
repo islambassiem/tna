@@ -9,10 +9,11 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
+                @if (count($attachments))
                     <div class="flex justify-around">
                         @foreach ($attachments as $attachment)
                             <div class="flex flex-col justify-center items-center gap-3">
-                                <a href="{{ route('download', $attachment->path) }}">
+                                <a href="{{ route('download',  $attachment->path) }}">
                                     <svg class="w-[50px] h-[50px] text-gray-900 hover:text-blue-600 dark:text-white" aria-hidden="true"
                                         xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                         viewBox="0 0 24 24">
@@ -26,6 +27,11 @@
                             </div>
                         @endforeach
                     </div>
+                @else
+                    <div class="text-lg font-bold">
+                        لا يوجد مرفقات 
+                    </div>
+                @endif
 
                 </div>
             </div>

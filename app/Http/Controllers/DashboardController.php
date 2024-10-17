@@ -7,7 +7,6 @@ use App\Models\Course;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 
 class DashboardController extends Controller
 {
@@ -59,7 +58,7 @@ class DashboardController extends Controller
 
         $this->storeFiles($files);
 
-        auth()->user()->courses()->attach(array_keys($selectedCourses));
+        $request->user()->courses()->attach(array_keys($selectedCourses));
 
         return redirect()->back()->with([
             'success' => 'تم تسجيل الدورات بنجاح'
@@ -92,7 +91,7 @@ class DashboardController extends Controller
         $paths = [];
         $user_id = Auth::user()->id;
         foreach ($files as $file) {
-            $filePath = $file->store("/" . $user_id, 'public');
+            $filePath = $file->store("/", 'public');
             $paths[]  =  $filePath;
             Attachment::create([
                 'user_id' => $user_id,
@@ -120,7 +119,7 @@ class DashboardController extends Controller
 
     public function download($path)
     {
-        return response()->download(storage_path($path));
+        return response()->download(public_path('storage/' . $path));
     }
 
 }

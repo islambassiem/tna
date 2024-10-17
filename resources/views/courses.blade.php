@@ -11,6 +11,7 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
 
 
+                @if (count($courses))
                     <div class="relative overflow-x-auto">
                         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                             <thead
@@ -53,6 +54,11 @@
                             </tbody>
                         </table>
                     </div>
+                @else
+                    <div class="text-lg font-bold">
+                        أنت ليس مسجل في أي دورات يمكنك التسجيل من الصفحة الرئيسية
+                    </div>
+                @endif
 
 
 

@@ -15,6 +15,15 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('الصفحة الرئيسية') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('profile.edit')" :active="request()->routeIs('profile.edit')">
+                        {{ __('صفحتي') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('courses')" :active="request()->routeIs('courses')">
+                        {{ __('دوراتي') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('attachments')" :active="request()->routeIs('attachments')">
+                        {{ __('المرفقات') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -34,6 +43,10 @@
                     </x-slot>
 
                     <x-slot name="content">
+                        <x-dropdown-link :href="route('dashboard')">
+                            {{ __('الصفحة الرئيسية') }}
+                        </x-dropdown-link>
+
                         <x-dropdown-link :href="route('profile.edit')">
                             {{ __('صفحتي') }}
                         </x-dropdown-link>
