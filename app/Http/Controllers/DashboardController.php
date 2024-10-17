@@ -7,6 +7,7 @@ use App\Models\Course;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class DashboardController extends Controller
 {
@@ -15,21 +16,12 @@ class DashboardController extends Controller
      */
     public function index()
     {
-
         $registeredCourses = Auth::user()->courses->pluck('id');
 
         $courses = Course::whereNotIn('id', $registeredCourses)->get();
         return view('dashboard', [
             'courses' => $courses
         ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -110,35 +102,25 @@ class DashboardController extends Controller
         return $paths;
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function courses()
     {
-        //
+        $courses =  Auth::user()->courses;
+        return view('courses', [
+            'courses' => $courses
+        ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function attachments()
     {
-        //
+        $attachments = Auth::user()->attachments;
+        return view('attachments', [
+            'attachments' => $attachments
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function download($path)
     {
-        //
+        return response()->download(storage_path($path));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
 }

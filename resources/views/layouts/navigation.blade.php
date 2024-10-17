@@ -38,6 +38,14 @@
                             {{ __('صفحتي') }}
                         </x-dropdown-link>
 
+                        <x-dropdown-link :href="route('courses')">
+                            {{ __('دوراتي') }}
+                        </x-dropdown-link>
+
+                        <x-dropdown-link :href="route('attachments')">
+                            {{ __('المرفقات') }}
+                        </x-dropdown-link>
+
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
@@ -82,6 +90,14 @@
             <div class="mt-3 space-y-1">
                 <x-responsive-nav-link :href="route('profile.edit')">
                     {{ __('صفحتي') }}
+                </x-responsive-nav-link>
+
+                <x-responsive-nav-link :href="route('courses')">
+                    {{ __('دوراتي') }}
+                </x-responsive-nav-link>
+
+                <x-responsive-nav-link :href="route('attachments')">
+                    {{ __('المرفقات') }}
                 </x-responsive-nav-link>
 
                 <!-- Authentication -->
